@@ -1,4 +1,4 @@
-# Go Store API
+# Go Store
 
 Proyecto simple en **Go + MySQL** para manejar:
 
@@ -93,7 +93,6 @@ brew services start mysql
 
 ```bash
 git clone https://github.com/jfong088/GoEcommerceSimulator.git
-cd go-store-api
 ```
 
 ---
