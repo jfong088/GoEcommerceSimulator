@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"net"
 	"server/database"
+	"server/network"
 )
 
 func main() {
@@ -14,31 +16,51 @@ func main() {
 
 	defer db.Close()
 
-	query := "INSERT INTO usuarios (mail, pass, role) VALUES (?, ?, ?)"
+	port := ":8000"
 
-	result, err := db.Exec(query, "test@mail.com", "123456", "admin")
+	listener, err := net.Listen("tcp", port)
 	if err != nil {
 		panic(err)
 	}
 
-	id, _ := result.LastInsertId()
+	fmt.Println("server started on port ", port)
 
-	fmt.Println("User inserted with ID:", id)
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			fmt.Println("Connection error...", err)
+			continue
+		}
+		fmt.Println("New client has connected:", conn.RemoteAddr())
 
-	rows, err := db.Query("SELECT id, mail, role FROM usuarios")
-	if err != nil {
-		panic(err)
+		go network.HandleClient(conn, db)
+
 	}
+	// query := "INSERT INTO usuarios (mail, pass, role) VALUES (?, ?, ?)"
 
-	defer rows.Close()
+	// result, err := db.Exec(query, "test@mail.com", "123456", "admin")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	for rows.Next() {
-		var id int
-		var mail string
-		var role string
+	// id, _ := result.LastInsertId()
 
-		rows.Scan(&id, &mail, &role)
+	// fmt.Println("User inserted with ID:", id)
 
-		fmt.Println(id, mail, role)
-	}
+	// rows, err := db.Query("SELECT id, mail, role FROM usuarios")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// defer rows.Close()
+
+	// for rows.Next() {
+	// 	var id int
+	// 	var mail string
+	// 	var role string
+
+	// 	rows.Scan(&id, &mail, &role)
+
+	// 	fmt.Println(id, mail, role)
+	// }
 }
