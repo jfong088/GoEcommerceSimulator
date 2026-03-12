@@ -43,6 +43,10 @@ Verificar instalación:
 ```bash
 mysql --version
 ```
+Posible problema 
+En caso que la terminal no reconozca mysql tras ser instalado, debes poner la direccion del programa como una nueva variable del sistema en PATH.
+
+Puedes acceder buscando en la barra de busqueda de Windows "Edit enviorment variables"
 
 Iniciar el servicio:
 
@@ -53,41 +57,8 @@ net start MySQL
 Si no funciona:
 
 ```bash
-net start MySQL80
+net start MySQL84
 ```
-
----
-
-## Linux (Ubuntu / Debian)
-
-```bash
-sudo apt update
-sudo apt install mysql-server
-```
-
-Iniciar servicio:
-
-```bash
-sudo systemctl start mysql
-```
-
----
-
-## Mac
-
-Instalar con Homebrew:
-
-```bash
-brew install mysql
-```
-
-Iniciar servicio:
-
-```bash
-brew services start mysql
-```
-
----
 
 # 3. Clonar el repositorio
 
@@ -98,6 +69,19 @@ git clone https://github.com/jfong088/GoEcommerceSimulator.git
 ---
 
 # 4. Crear las tablas con el schema
+Se crea la base de datos en MySql
+
+```bash
+mysql -u root -p
+```
+
+```bash
+CREATE DATABASE go_store;
+```
+
+```bash
+exit
+```
 
 Desde la raíz del proyecto ejecutar:
 
@@ -113,6 +97,7 @@ database/schema.sql
 ---
 
 # 5. Instalar dependencias de Go
+Meterse a la carpeta src/server
 
 Instalar el driver de MySQL:
 
