@@ -226,7 +226,7 @@ func handleViewMyCart() {
 		return
 	}
 
-	fmt.Println("\n Product               | Qty | Price    | Status")
+	fmt.Println("\n Product               | Amount | Price    | Status")
 	fmt.Println("--------------------------------------------------")
 	for i := 0; i < count; i++ {
 		line := readResponse()

@@ -1,0 +1,15 @@
+2026/03/15 14:51:48 server started on port :8000
+2026/03/15 14:52:06 new client connected: 127.0.0.1:8847
+2026/03/15 14:52:14 LOGIN - email: ana role: admin
+2026/03/15 14:52:47 ADD PRODUCT - name: dulce price: 10.00 amount: 30
+2026/03/15 14:53:18 LOGIN - email: ani role: client
+2026/03/15 14:53:53 ADD TO CART - user: 4 total: $%!f(string=du)%!(EXTRA int=20)
+2026/03/15 14:53:56 PLACE ORDER - user: dulce total: $%!f(int=20)%!(EXTRA float64=10, string=in cart)
+2026/03/15 14:57:53 server started on port :8000
+2026/03/15 14:58:12 new client connected: 127.0.0.1:1542
+2026/03/15 14:58:22 LOGIN - email: rosa role: client
+2026/03/15 14:58:23 PLACE ORDER - name of product: %!s(*string=0xc0001840b0) total: $100.00
+2026/03/15 14:59:32 server started on port :8000
+2026/03/15 14:59:41 new client connected: 127.0.0.1:1551
+2026/03/15 14:59:47 LOGIN - email: rosa role: client
+2026/03/15 14:59:51 PLACE ORDER - name of product: 5 total: $100.00
