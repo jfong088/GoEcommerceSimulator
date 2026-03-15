@@ -111,7 +111,7 @@ func handleLogin() {
 func adminMenu() {
 	fmt.Println("\n=== Admin Panel ===")
 	for {
-		fmt.Println("\n--- Admin Menu no hace nada ---")
+		fmt.Println("\n--- Admin Menu ---")
 		fmt.Println("1) Add product")
 		fmt.Println("2) Update stock")
 		fmt.Println("3) Update price")
@@ -123,8 +123,27 @@ func adminMenu() {
 		switch option {
 		case "1":
 		case "2":
+			fmt.Print("Product ID: ")
+			id := readInput()
+			fmt.Print("New Stock: ")
+			stock := readInput()
+			sendCommand("UPDATE_STOCK")
+			sendCommand(id)
+			sendCommand(stock)
+			fmt.Println("Server:", readResponse())
 		case "3":
+			fmt.Print("Product ID: ")
+			id := readInput()
+			fmt.Print("New Price: ")
+			price := readInput()
+			sendCommand("UPDATE_PRICE")
+			sendCommand(id)
+			sendCommand(price)
+			fmt.Println("Server:", readResponse())
 		case "4":
+			sendCommand("ORDER_HISTORY")
+			response := readResponse()
+			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "5":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out...")
@@ -138,7 +157,7 @@ func adminMenu() {
 func clientMenu() {
 	fmt.Println("\n=== Client Panel ===")
 	for {
-		fmt.Println("\n--- Client Menu no hace nada---")
+		fmt.Println("\n--- Client Menu ---")
 		fmt.Println("1) List products")
 		fmt.Println("2) Add to cart")
 		fmt.Println("3) View cart")
@@ -149,6 +168,9 @@ func clientMenu() {
 		option := readInput()
 		switch option {
 		case "1":
+			sendCommand("LIST_PRODUCTS")
+			response := readResponse()
+			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "2":
 		case "3":
 		case "4":
