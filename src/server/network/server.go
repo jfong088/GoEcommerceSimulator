@@ -5,7 +5,9 @@ import (
 	"database/sql"
 	"fmt"
 	"net"
+	"server/admin"
 	"server/auth"
+	"strconv"
 	"strings"
 )
 
@@ -32,7 +34,9 @@ func HandleClient(conn net.Conn, db *sql.DB) {
 
 		case "LOGOUT":
 			fmt.Printf("Client logged out: %s\n", conn.RemoteAddr())
-			return
+
+		case "ADD":
+			handleAddProduct(reader, conn, db)
 
 		default:
 			fmt.Fprintln(conn, "ERROR Unknown command")
@@ -67,6 +71,41 @@ func handleLogin(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	fmt.Printf("Client number ->( %s ) logged in as ( %s ) with email ( %s )\n", conn.RemoteAddr(), user.Role, user.Mail)
 
 	fmt.Fprintln(conn, "OK "+user.Role)
+	fmt.Fprintln(conn, user.ID)
+}
+
+func handleAddProduct(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	idUser := readLine(reader)
+	name := readLine(reader)
+	priceStr := readLine(reader)
+	amountStr := readLine(reader)
+
+	err := admin.ValidateAdmin(idUser, db)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR "+err.Error())
+		return
+	}
+
+	price, err := strconv.ParseFloat(priceStr, 64)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR price must be a number")
+		return
+	}
+
+	amount, err := strconv.Atoi(amountStr)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR amount must be a number")
+		return
+	}
+
+	err = admin.AddProduct(name, price, amount, db)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR "+err.Error())
+		return
+	}
+
+	fmt.Fprintln(conn, "product added by user "+idUser)
+
 }
 
 func readLine(reader *bufio.Reader) string {

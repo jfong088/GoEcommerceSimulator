@@ -3,28 +3,28 @@ CREATE DATABASE go_store;
 
 USE go_store;
 
-CREATE TABLE IF NOT EXISTS usuarios (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mail VARCHAR(255) NOT NULL UNIQUE,
     pass VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS productos (
+CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    precio DECIMAL(10,2) NOT NULL,
-    cantidad INT NOT NULL
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    amount INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS ordenes (
+CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    id_producto INT NOT NULL,
+    id_user INT NOT NULL,
+    id_product INT NOT NULL,
     cantidad INT NOT NULL,
     order_status VARCHAR(50) NOT NULL,
     fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_producto) REFERENCES productos(id)
+    FOREIGN KEY (id_user) REFERENCES users(id),
+    FOREIGN KEY (id_product) REFERENCES products(id)
 );

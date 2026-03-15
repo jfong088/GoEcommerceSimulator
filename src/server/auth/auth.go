@@ -22,7 +22,7 @@ func Register(mail, pass, role string, db *sql.DB) error {
 		return fmt.Errorf("role must be 'admin' or 'client'")
 	}
 
-	query := "INSERT INTO usuarios (mail, pass, role) VALUES (?, ?, ?)"
+	query := "INSERT INTO users (mail, pass, role) VALUES (?, ?, ?)"
 	_, err := db.Exec(query, mail, pass, role)
 	if err != nil {
 
@@ -40,7 +40,7 @@ func Login(mail, pass string, db *sql.DB) (*User, error) {
 		return nil, fmt.Errorf("email and password are required...")
 	}
 
-	query := "SELECT id, role FROM usuarios WHERE mail=? AND pass=?"
+	query := "SELECT id, role FROM users WHERE mail=? AND pass=?"
 	row := db.QueryRow(query, mail, pass)
 
 	var user User
