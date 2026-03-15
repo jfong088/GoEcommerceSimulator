@@ -128,7 +128,7 @@ func adminMenu() {
 		case "1":
 			handleAddProduct()
 		case "2":
-			fmt.Print("Product ID: ")
+			fmt.Print("Product name: ")
 			id := readInput()
 			fmt.Print("New Stock: ")
 			stock := readInput()
@@ -137,7 +137,7 @@ func adminMenu() {
 			sendCommand(stock)
 			fmt.Println("Server:", readResponse())
 		case "3":
-			fmt.Print("Product ID: ")
+			fmt.Print("Product name: ")
 			id := readInput()
 			fmt.Print("New Price: ")
 			price := readInput()
@@ -195,13 +195,10 @@ func clientMenu() {
 		option := readInput()
 		switch option {
 		case "1":
-<<<<<<< HEAD
 			sendCommand("LIST_PRODUCTS")
 			response := readResponse()
 			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
-=======
 			sendCommand("LIST")
->>>>>>> 4c29e995bd4066fdd3cc08d602078e744f09f378
 		case "2":
 		case "3":
 		case "4":

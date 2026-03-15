@@ -32,7 +32,6 @@ func HandleClient(conn net.Conn, db *sql.DB) {
 			handleLogin(reader, conn, db)
 		case "LOGOUT":
 			fmt.Printf("Client logged out: %s\n", conn.RemoteAddr())
-<<<<<<< HEAD
 			return
 		case "UPDATE_STOCK":
 			handleUpdateStock(reader, conn, db)
@@ -42,12 +41,10 @@ func HandleClient(conn net.Conn, db *sql.DB) {
 			handleOrderHistory(conn, db)
 		case "LIST_PRODUCTS":
 			handleListProducts(conn, db)
-=======
 
 		case "ADD":
 			handleAddProduct(reader, conn, db)
 
->>>>>>> 4c29e995bd4066fdd3cc08d602078e744f09f378
 		default:
 			fmt.Fprintln(conn, "ERROR Unknown command")
 		}
@@ -122,7 +119,7 @@ func handleUpdateStock(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	id := readLine(reader)
 	stock := readLine(reader)
 
-	_, err := db.Exec("UPDATE productos SET cantidad = ? WHERE id = ?", stock, id)
+	_, err := db.Exec("UPDATE products SET amount = ? WHERE name = ?", stock, id)
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not update stock")
 		return
@@ -134,7 +131,7 @@ func handleUpdatePrice(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	id := readLine(reader)
 	price := readLine(reader)
 
-	_, err := db.Exec("UPDATE productos SET precio = ? WHERE id = ?", price, id)
+	_, err := db.Exec("UPDATE products SET price = ? WHERE name = ?", price, id)
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not update price")
 		return
