@@ -144,10 +144,10 @@ func handleUpdatePrice(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 
 func handleOrderHistory(conn net.Conn, db *sql.DB) {
 	query := `
-		SELECT o.id, u.mail, p.nombre, o.cantidad, o.order_status 
-		FROM ordenes o 
+		SELECT o.id_user, id_product, p.name, o.cantidad, o.order_status 
+		FROM orders o 
 		JOIN usuarios u ON o.id_usuario = u.id 
-		JOIN productos p ON o.id_producto = p.id
+		JOIN productos p ON o.id_product = p.id
 	`
 	rows, err := db.Query(query)
 	if err != nil {
@@ -172,7 +172,7 @@ func handleOrderHistory(conn net.Conn, db *sql.DB) {
 }
 
 func handleListProducts(conn net.Conn, db *sql.DB) {
-	rows, err := db.Query("SELECT id, nombre, cantidad, precio FROM productos")
+	rows, err := db.Query("SELECT id, name, amount, precio FROM products")
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not fetch products")
 		return

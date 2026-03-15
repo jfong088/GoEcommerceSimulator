@@ -150,7 +150,7 @@ func adminMenu() {
 			response := readResponse()
 			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "5":
-			sendCommand("LIST")
+			sendCommand("LIST_PRODUCTS")
 		case "6":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out...")
