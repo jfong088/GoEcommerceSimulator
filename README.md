@@ -134,6 +134,15 @@ dbname := "go_store"
 # Ejemplo de funcionalidades del administrador 
 ## Añadir producto
 ![](src/server/imagesREADME/ADDPRODUCT.png)
+## Actualizar stock
+![](src/server/imagesREADME/UPDATESTOCK.png)
+
+## Actualizar precio
+![](src/server/imagesREADME/UPDATEPROCE.png)
+
+## Historial 
+![](src/server/imagesREADME/HISTORY.png)
+
 
 # Ejemplo de funcionalidades del cliente
 ## Añadir producto a carrito 

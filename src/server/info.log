@@ -1,0 +1,7 @@
+2026/03/15 17:12:20 server started on port :8000
+2026/03/15 17:12:35 new client connected: 127.0.0.1:26533
+2026/03/15 17:12:37 LOGIN - email: ana role: admin
+2026/03/15 17:12:44 ADD PRODUCT - name: aa price: 30.00 amount: 100
+2026/03/15 17:12:49 LOGIN - email: ani role: client
+2026/03/15 17:13:01 ADD TO CART - user: 4 total: $%!f(int=04)
+2026/03/15 17:13:03 PLACE ORDER - product id: 4 total: $30.00
