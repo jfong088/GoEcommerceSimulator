@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -178,8 +179,11 @@ func clientMenu() {
 		case "1":
 			sendCommand("LIST")
 		case "2":
+			handleAddToCart()
 		case "3":
+			handleViewMyCart()
 		case "4":
+			handlePlaceOrder()
 		case "5":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out")
@@ -188,4 +192,55 @@ func clientMenu() {
 			fmt.Println("Invalid option...")
 		}
 	}
+}
+
+func handleAddToCart() {
+	//handleListProducts()
+	fmt.Print("Product name: ")
+	name := readInput()
+
+	fmt.Print("Amount: ")
+	amount := readInput()
+	sendCommand("ADDTOCART")
+	sendCommand(idUser)
+	sendCommand(name)
+	sendCommand(amount)
+
+	response := readResponse()
+	fmt.Println("Server:", response)
+}
+
+func handleViewMyCart() {
+	sendCommand("VIEWMYCART")
+	sendCommand(idUser)
+
+	countStr := readResponse()
+	count, err := strconv.Atoi(countStr)
+	if err != nil {
+		fmt.Println("ERROR:", countStr)
+		return
+	}
+
+	if count == 0 {
+		fmt.Println("Your cart is empty.")
+		return
+	}
+
+	fmt.Println("\n Product               | Qty | Price    | Status")
+	fmt.Println("--------------------------------------------------")
+	for i := 0; i < count; i++ {
+		line := readResponse()
+		parts := strings.Split(line, "|")
+		if len(parts) == 4 {
+			fmt.Printf(" %-22s | %-3s | $%-7s | %s\n", parts[0], parts[1], parts[2], parts[3])
+		}
+	}
+
+}
+func handlePlaceOrder() {
+	sendCommand("PLACEORDER")
+	sendCommand(idUser)
+
+	response := readResponse()
+	fmt.Println("Server:", response)
 }
