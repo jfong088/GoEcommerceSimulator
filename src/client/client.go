@@ -115,7 +115,7 @@ func handleLogin() {
 func adminMenu() {
 	fmt.Println("\n=== Admin Panel ===")
 	for {
-		fmt.Println("\n--- Admin Menu no hace nada ---")
+		fmt.Println("\n--- Admin Menu ---")
 		fmt.Println("1) Add product")
 		fmt.Println("2) Update stock")
 		fmt.Println("3) Update price")
@@ -166,7 +166,7 @@ func handleAddProduct() {
 func clientMenu() {
 	fmt.Println("\n=== Client Panel ===")
 	for {
-		fmt.Println("\n--- Client Menu no hace nada---")
+		fmt.Println("\n--- Client Menu ---")
 		fmt.Println("1) List products")
 		fmt.Println("2) Add to cart")
 		fmt.Println("3) View cart")

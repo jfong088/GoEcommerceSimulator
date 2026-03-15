@@ -13,3 +13,53 @@
 2026/03/15 14:59:41 new client connected: 127.0.0.1:1551
 2026/03/15 14:59:47 LOGIN - email: rosa role: client
 2026/03/15 14:59:51 PLACE ORDER - name of product: 5 total: $100.00
+2026/03/15 15:12:35 server started on port :8000
+2026/03/15 15:12:58 new client connected: 127.0.0.1:22069
+2026/03/15 15:13:16 LOGIN - email: ana role: admin
+2026/03/15 15:13:31 ADD PRODUCT - name: popo price: 1.00 amount: 20
+2026/03/15 15:13:52 new client connected: 127.0.0.1:22074
+2026/03/15 15:13:56 LOGIN - email: ani role: client
+2026/03/15 15:14:00 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:14:03 PLACE ORDER - user: 4 total: $200.00
+2026/03/15 15:14:28 ADD TO CART - user: 4 total: $%!f(int=02)
+2026/03/15 15:14:48 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:14:49 PLACE ORDER - user: 4 total: $20.00
+2026/03/15 15:15:11 new client connected: 127.0.0.1:22076
+2026/03/15 15:15:14 LOGIN - email: rosa role: client
+2026/03/15 15:15:15 PLACE ORDER - product id: 5 total: $100.00
+2026/03/15 15:15:18 PLACE ORDER - user: 5 total: $200.00
+2026/03/15 15:16:04 LOGIN - email: ana role: admin
+2026/03/15 15:16:10 ADD PRODUCT - name: ññ price: 100.00 amount: 10
+2026/03/15 15:16:19 LOGIN - email: ani role: client
+2026/03/15 15:16:25 ADD TO CART - user: 4 total: $%!f(int=10)
+2026/03/15 15:16:27 PLACE ORDER - user: 4 total: $1000.00
+2026/03/15 15:16:59 LOGIN - email: ana role: admin
+2026/03/15 15:17:06 ADD PRODUCT - name: pp price: 10.00 amount: 10
+2026/03/15 15:17:12 LOGIN - email: ani role: client
+2026/03/15 15:17:18 ADD TO CART - user: 4 total: $%!f(int=10)
+2026/03/15 15:17:20 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:17:32 ADD TO CART - user: 4 total: $%!f(int=10)
+2026/03/15 15:17:33 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:17:33 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:17:41 PLACE ORDER - user: 4 total: $200.00
+2026/03/15 15:18:22 LOGIN - email: ana role: admin
+2026/03/15 15:18:30 ADD PRODUCT - name: aa price: 10.00 amount: 10
+2026/03/15 15:18:34 LOGIN - email: ani role: client
+2026/03/15 15:18:39 ADD TO CART - user: 4 total: $%!f(int=10)
+2026/03/15 15:18:41 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:18:57 LOGIN - email: rosa role: client
+2026/03/15 15:19:03 ADD TO CART - user: 5 total: $%!f(int=10)
+2026/03/15 15:19:05 PLACE ORDER - product id: 5 total: $10.00
+2026/03/15 15:19:10 PLACE ORDER - user: 5 total: $100.00
+2026/03/15 15:19:14 PLACE ORDER - user: 4 total: $100.00
+2026/03/15 15:21:47 server started on port :8000
+2026/03/15 15:21:58 new client connected: 127.0.0.1:30838
+2026/03/15 15:22:04 LOGIN - email: ana role: admin
+2026/03/15 15:22:09 ADD PRODUCT - name: ss price: 10.00 amount: 10
+2026/03/15 15:22:15 LOGIN - email: ani role: client
+2026/03/15 15:22:22 ADD TO CART - user: 4 total: $%!f(int=10)
+2026/03/15 15:22:24 PLACE ORDER - product id: 4 total: $10.00
+2026/03/15 15:22:30 new client connected: 127.0.0.1:24190
+2026/03/15 15:22:34 LOGIN - email: rosa role: client
+2026/03/15 15:30:15 new client connected: 127.0.0.1:4712
+2026/03/15 15:30:21 LOGIN - email: ana role: admin
