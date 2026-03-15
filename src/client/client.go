@@ -12,6 +12,8 @@ var (
 	conn         net.Conn
 	serverReader *bufio.Reader
 	userReader   *bufio.Reader
+
+	idUser string
 )
 
 func main() {
@@ -100,6 +102,7 @@ func handleLogin() {
 
 	response := readResponse()
 	fmt.Println("Server:", response)
+	idUser = readResponse()
 
 	if strings.HasPrefix(response, "OK admin") {
 		adminMenu()
@@ -116,12 +119,14 @@ func adminMenu() {
 		fmt.Println("2) Update stock")
 		fmt.Println("3) Update price")
 		fmt.Println("4) View order history")
-		fmt.Println("5) Logout")
+		fmt.Println("5) List products")
+		fmt.Println("6) Logout")
 		fmt.Print("Choose an option: ")
 
 		option := readInput()
 		switch option {
 		case "1":
+			handleAddProduct()
 		case "2":
 			fmt.Print("Product ID: ")
 			id := readInput()
@@ -145,6 +150,8 @@ func adminMenu() {
 			response := readResponse()
 			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "5":
+			sendCommand("LIST")
+		case "6":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out...")
 			return
@@ -152,6 +159,26 @@ func adminMenu() {
 			fmt.Println("Invalid option...")
 		}
 	}
+}
+
+func handleAddProduct() {
+	fmt.Print("Product Name: ")
+	name := readInput()
+
+	fmt.Print("Product amount: ")
+	amount := readInput()
+
+	fmt.Print("Product price: ")
+	price := readInput()
+	sendCommand("ADD")
+	sendCommand(idUser)
+	sendCommand(name)
+	sendCommand(amount)
+	sendCommand(price)
+
+	response := readResponse()
+	fmt.Println("Server:", response)
+
 }
 
 func clientMenu() {
@@ -168,9 +195,13 @@ func clientMenu() {
 		option := readInput()
 		switch option {
 		case "1":
+<<<<<<< HEAD
 			sendCommand("LIST_PRODUCTS")
 			response := readResponse()
 			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
+=======
+			sendCommand("LIST")
+>>>>>>> 4c29e995bd4066fdd3cc08d602078e744f09f378
 		case "2":
 		case "3":
 		case "4":
