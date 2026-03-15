@@ -82,16 +82,16 @@ func PlaceOrder(idUser string, db *sql.DB) (float64, error) {
 
 	var total float64
 	err := db.QueryRow(`
-        SELECT SUM(p.price * o.cantidad)FROM orders o JOIN products p ON o.id_product = p.id WHERE o.id_user = ? AND o.order_status = 'in cart'`, idUser).Scan(&total)
-	if err != nil {
-		return 0, err
-	}
-	_, err = db.Exec(`
-        UPDATE products p JOIN orders o ON o.id_product = p.id SET p.amount = p.amount - o.cantidad WHERE o.id_user = ? AND o.order_status = 'in cart'`, idUser)
+        SELECT SUM(p.price * o.cantidad) 
+        FROM orders o 
+        JOIN products p ON o.id_product = p.id 
+        WHERE o.id_user = ? AND o.order_status = 'in cart'
+    `, idUser).Scan(&total)
 	if err != nil {
 		return 0, err
 	}
 
+	// ← solo cambia el status, el stock ya fue descontado en AddToCart
 	_, err = db.Exec("UPDATE orders SET order_status = 'completed' WHERE id_user = ? AND order_status = 'in cart'", idUser)
 	if err != nil {
 		return 0, err
