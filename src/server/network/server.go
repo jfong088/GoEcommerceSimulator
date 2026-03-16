@@ -148,7 +148,7 @@ func handleAddToCart(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR "+err.Error())
 		return
 	}
-	log.Printf("ADD TO CART - user: %s total: $%.2f", idUser, amount)
+	log.Printf("ADD TO CART - user: %s product: %s amount: %d", idUser, productName, amount)
 
 	fmt.Fprintln(conn, "OK "+productName+" added to cart")
 }
@@ -161,10 +161,10 @@ func handleViewMyCart(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR "+err.Error())
 		return
 	}
+	log.Printf("VIEW CART - user: %s items: %d", idUser, len(items))
 
 	fmt.Fprintln(conn, len(items))
 	for _, item := range items {
-		log.Printf("PLACE ORDER - product id: %s total: $%.2f", idUser, item.Price)
 
 		fmt.Fprintln(conn, fmt.Sprintf("%s|%d|%.2f|%s", item.Name, item.Cantidad, item.Price, item.Status))
 	}
@@ -207,6 +207,7 @@ func handleUpdateStock(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR product not found")
 		return
 	}
+	log.Printf("UPDATE STOCK - product: %s new stock: %s", id, stock)
 
 	fmt.Fprintln(conn, "OK Stock updated successfully")
 }
@@ -231,6 +232,7 @@ func handleUpdatePrice(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR product not found")
 		return
 	}
+	log.Printf("UPDATE PRICE - product: %s new price: %s", id, price)
 
 	fmt.Fprintln(conn, "OK Price updated successfully")
 }
@@ -261,6 +263,8 @@ func handleOrderHistory(conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "OK No orders found")
 		return
 	}
+	log.Printf("ORDER HISTORY - fetched %d orders", len(result))
+
 	fmt.Fprintln(conn, "OK |"+strings.Join(result, "|"))
 }
 
@@ -285,6 +289,7 @@ func handleListProducts(conn net.Conn, db *sql.DB) {
 		rows.Scan(&p.Name, &p.Amount, &p.Price)
 		products = append(products, p)
 	}
+	log.Printf("LIST PRODUCTS - fetched %d products", len(products))
 
 	fmt.Fprintln(conn, len(products))
 

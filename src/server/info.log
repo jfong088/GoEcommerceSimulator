@@ -66,3 +66,19 @@
 2026/03/15 19:18:25 server started on port :8000
 2026/03/15 19:18:26 new client connected: 127.0.0.1:61755
 2026/03/15 19:18:28 LOGIN - email: sa role: admin
+2026/03/15 20:40:23 server started on port :8000
+2026/03/15 20:40:57 new client connected: 127.0.0.1:1319
+2026/03/15 20:41:26 REGISTER - email: ana role: admin
+2026/03/15 20:41:30 LOGIN - email: ana role: admin
+2026/03/15 20:41:49 ADD PRODUCT - name: compu price: 10000.00 amount: 20
+2026/03/15 20:43:46 new client connected: 127.0.0.1:14111
+2026/03/15 20:43:53 REGISTER - email: ani role: client
+2026/03/15 20:43:56 LOGIN - email: ani role: client
+2026/03/15 20:44:17 ADD TO CART - user: 2 total: $%!f(int=01)
+2026/03/15 20:44:20 PLACE ORDER - product id: 2 total: $50000.00
+2026/03/15 21:00:04 server started on port :8000
+2026/03/15 21:00:27 new client connected: 127.0.0.1:1645
+2026/03/15 21:00:31 LOGIN - email: ani role: client
+2026/03/15 21:00:34 VIEW CART - user: 2 items: 1
+2026/03/15 21:00:37 PLACE ORDER - user: 2 total: $50000.00
+2026/03/15 21:00:38 VIEW CART - user: 2 items: 0
