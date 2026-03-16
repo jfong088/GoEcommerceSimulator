@@ -5,3 +5,53 @@
 2026/03/15 17:12:49 LOGIN - email: ani role: client
 2026/03/15 17:13:01 ADD TO CART - user: 4 total: $%!f(int=04)
 2026/03/15 17:13:03 PLACE ORDER - product id: 4 total: $30.00
+2026/03/15 18:33:10 server started on port :8000
+2026/03/15 18:33:13 new client connected: 127.0.0.1:59149
+2026/03/15 18:33:41 new client connected: 127.0.0.1:59163
+2026/03/15 18:33:46 LOGIN - email: sa role: admin
+2026/03/15 18:33:50 LOGIN - email: as role: client
+2026/03/15 18:34:06 ADD PRODUCT - name: Buenas price: 2.00 amount: 12
+2026/03/15 18:34:45 server started on port :8000
+2026/03/15 18:34:53 new client connected: 127.0.0.1:52559
+2026/03/15 18:34:57 LOGIN - email: sa role: admin
+2026/03/15 18:37:29 server started on port :8000
+2026/03/15 18:37:30 new client connected: 127.0.0.1:56660
+2026/03/15 18:37:33 LOGIN - email: SA role: admin
+2026/03/15 18:41:03 server started on port :8000
+2026/03/15 18:41:05 new client connected: 127.0.0.1:50627
+2026/03/15 18:41:26 LOGIN - email: sa role: admin
+2026/03/15 18:42:35 new client connected: 127.0.0.1:61233
+2026/03/15 18:42:42 LOGIN - email: as role: client
+2026/03/15 18:43:20 ADD TO CART - user: 2 total: $%!f(int=24)
+2026/03/15 18:43:22 PLACE ORDER - user: 2 total: $96.00
+2026/03/15 18:43:42 ADD TO CART - user: 2 total: $%!f(int=12)
+2026/03/15 18:43:48 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:44:31 ADD TO CART - user: 2 total: $%!f(int=06)
+2026/03/15 18:44:33 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:44:33 PLACE ORDER - product id: 2 total: $2.00
+2026/03/15 18:44:45 new client connected: 127.0.0.1:58205
+2026/03/15 18:44:48 LOGIN - email: as role: client
+2026/03/15 18:45:00 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:45:00 PLACE ORDER - product id: 2 total: $2.00
+2026/03/15 18:45:05 PLACE ORDER - user: 2 total: $60.00
+2026/03/15 18:47:12 server started on port :8000
+2026/03/15 18:47:13 new client connected: 127.0.0.1:60377
+2026/03/15 18:47:16 LOGIN - email: sa role: admin
+2026/03/15 18:48:44 server started on port :8000
+2026/03/15 18:48:46 new client connected: 127.0.0.1:49355
+2026/03/15 18:48:47 LOGIN - email: sa role: admin
+2026/03/15 18:55:22 server started on port :8000
+2026/03/15 18:55:24 new client connected: 127.0.0.1:53376
+2026/03/15 18:55:29 LOGIN - email: sa role: admin
+2026/03/15 18:55:39 new client connected: 127.0.0.1:65031
+2026/03/15 18:55:41 LOGIN - email: as role: client
+2026/03/15 18:55:52 ADD TO CART - user: 2 total: $%!f(int=12)
+2026/03/15 18:57:25 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:57:42 ADD TO CART - user: 2 total: $%!f(int=06)
+2026/03/15 18:57:46 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:57:46 PLACE ORDER - product id: 2 total: $2.00
+2026/03/15 18:57:58 ADD TO CART - user: 2 total: $%!f(int=05)
+2026/03/15 18:58:04 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 18:58:04 PLACE ORDER - product id: 2 total: $2.00
+2026/03/15 18:58:04 PLACE ORDER - product id: 2 total: $4.00
+2026/03/15 19:01:05 PLACE ORDER - user: 2 total: $80.00

@@ -151,7 +151,7 @@ func adminMenu() {
 			response := readResponse()
 			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "5":
-			sendCommand("LIST_PRODUCTS")
+			handleListProducts()
 		case "6":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out...")
@@ -196,10 +196,7 @@ func clientMenu() {
 		option := readInput()
 		switch option {
 		case "1":
-			sendCommand("LIST_PRODUCTS")
-			response := readResponse()
-			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
-			sendCommand("LIST")
+			handleListProducts()
 		case "2":
 			handleAddToCart()
 		case "3":
@@ -265,4 +262,36 @@ func handlePlaceOrder() {
 
 	response := readResponse()
 	fmt.Println("Server:", response)
+}
+
+func handleListProducts() {
+	sendCommand("LIST_PRODUCTS")
+
+	countStr := readResponse()
+	count, err := strconv.Atoi(countStr)
+	if err != nil {
+		fmt.Println("ERROR:", countStr)
+		return
+	}
+
+	if count == 0 {
+		fmt.Println("No products available.")
+		return
+	}
+
+	fmt.Println("\n Product               | Amount | Price")
+	fmt.Println("---------------------------------------")
+
+	for i := 0; i < count; i++ {
+		line := readResponse()
+		parts := strings.Split(line, "|")
+
+		if len(parts) == 3 {
+			fmt.Printf(" %-22s | %-6s | $%-7s\n",
+				parts[0],
+				parts[1],
+				parts[2],
+			)
+		}
+	}
 }

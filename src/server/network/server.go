@@ -214,12 +214,12 @@ func handleOrderHistory(conn net.Conn, db *sql.DB) {
 	query := `
 		SELECT o.id_user, id_product, p.name, o.cantidad, o.order_status 
 		FROM orders o 
-		JOIN usuarios u ON o.id_usuario = u.id 
-		JOIN productos p ON o.id_product = p.id
+		JOIN users u ON o.id_user = u.id 
+		JOIN products p ON o.id_product = p.id
 	`
 	rows, err := db.Query(query)
 	if err != nil {
-		fmt.Fprintln(conn, "ERROR Could not fetch order history")
+		fmt.Fprintln(conn, "ERROR Could not fetch order history"+err.Error())
 		return
 	}
 	defer rows.Close()
@@ -240,29 +240,33 @@ func handleOrderHistory(conn net.Conn, db *sql.DB) {
 }
 
 func handleListProducts(conn net.Conn, db *sql.DB) {
-	rows, err := db.Query("SELECT id, name, amount, precio FROM products")
+	rows, err := db.Query("SELECT name, amount, price FROM products")
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not fetch products")
 		return
 	}
 	defer rows.Close()
 
-	var result []string
+	type Product struct {
+		Name   string
+		Amount int
+		Price  float64
+	}
+
+	var products []Product
+
 	for rows.Next() {
-		var id, cantidad int
-		var name string
-		var precio float64
-		rows.Scan(&id, &name, &cantidad, &precio)
-		result = append(result, fmt.Sprintf("ID: %d | Product: %s | Stock: %d | Price: $%.2f", id, name, cantidad, precio))
+		var p Product
+		rows.Scan(&p.Name, &p.Amount, &p.Price)
+		products = append(products, p)
 	}
 
-	if len(result) == 0 {
-		fmt.Fprintln(conn, "OK No products found")
-		return
+	fmt.Fprintln(conn, len(products))
+
+	for _, p := range products {
+		fmt.Fprintln(conn, fmt.Sprintf("%s|%d|%.2f", p.Name, p.Amount, p.Price))
 	}
-	fmt.Fprintln(conn, "OK |"+strings.Join(result, "|"))
 }
-
 func readLine(reader *bufio.Reader) string {
 	line, _ := reader.ReadString('\n')
 	return strings.TrimSpace(line)

@@ -91,7 +91,6 @@ func PlaceOrder(idUser string, db *sql.DB) (float64, error) {
 		return 0, err
 	}
 
-	// ← solo cambia el status, el stock ya fue descontado en AddToCart
 	_, err = db.Exec("UPDATE orders SET order_status = 'completed' WHERE id_user = ? AND order_status = 'in cart'", idUser)
 	if err != nil {
 		return 0, err
