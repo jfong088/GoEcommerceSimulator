@@ -131,3 +131,33 @@ port := "3306"
 dbname := "go_store"
 ```
 
+# Ejemplo de funcionalidades del administrador 
+## Añadir producto
+![](src/server/imagesREADME/ADDPRODUCT.png)
+## Actualizar stock
+![](src/server/imagesREADME/UPDATESTOCK.png)
+
+## Actualizar precio
+![](src/server/imagesREADME/UPDATEPROCE.png)
+
+## Historial 
+![](src/server/imagesREADME/HISTORY.png)
+
+
+# Ejemplo de funcionalidades del cliente
+## Añadir producto a carrito 
+![](src/server/imagesREADME/ADDTOCART.png)
+## Ver carrito
+![](src/server/imagesREADME/VIEWCART.png)
+## Comprar productos en carrito
+![](src/server/imagesREADME/PLACEORDER.png)
+
+
+
+
+# Futuras mejoras 
+1.- Busqueda de productos-> en vez de mostrar todos los productos disponibles, una mejora seria tambien poder buscar un producto en especifico
+
+2.- Historial de compras-> que el cliente pueda ver sus compras pasadas con el dinero total que gasto, fecha, y el status del producto en completed 
+
+3.- Bannear usuarios-> los admin puedan bloquear mails especificos o vaciarle el carrito a los clientes

@@ -2,12 +2,22 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
+	"os"
 	"server/database"
 	"server/network"
 )
 
 func main() {
+
+	file, err := os.OpenFile("info.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("error opening log file %v", err)
+
+	}
+	defer file.Close()
+	log.SetOutput(file)
 
 	db, err := database.Connect()
 	if err != nil {
@@ -22,8 +32,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("server started on port ", port)
+	log.Printf("server started on port %s", port)
+	fmt.Println("server started on port", port)
 
 	for {
 		conn, err := listener.Accept()
@@ -31,11 +41,14 @@ func main() {
 			fmt.Println("Connection error...", err)
 			continue
 		}
+		log.Printf("new client connected: %s", conn.RemoteAddr())
+
 		fmt.Println("New client has connected:", conn.RemoteAddr())
 
 		go network.HandleClient(conn, db)
 
 	}
+
 	// query := "INSERT INTO usuarios (mail, pass, role) VALUES (?, ?, ?)"
 
 	// result, err := db.Exec(query, "test@mail.com", "123456", "admin")

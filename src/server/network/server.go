@@ -4,11 +4,14 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
+	"log"
 	"net"
 	"server/admin"
 	"server/auth"
+	storeclient "server/storeClient"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 func HandleClient(conn net.Conn, db *sql.DB) {
@@ -45,6 +48,14 @@ func HandleClient(conn net.Conn, db *sql.DB) {
 		case "ADD":
 			handleAddProduct(reader, conn, db)
 
+		case "ADDTOCART":
+			handleAddToCart(reader, conn, db)
+
+		case "VIEWMYCART":
+			handleViewMyCart(reader, conn, db)
+
+		case "PLACEORDER":
+			handlePlaceOrder(reader, conn, db)
 		default:
 			fmt.Fprintln(conn, "ERROR Unknown command")
 		}
@@ -63,6 +74,8 @@ func handleRegister(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	}
 	fmt.Printf("Client number -> ( %s ) registered with email ( %s ) and is now a ( %s )\n", conn.RemoteAddr(), mail, role)
 
+	log.Printf("REGISTER - email: %s role: %s", mail, role)
+
 	fmt.Fprintln(conn, "OK User registered successfully")
 }
 
@@ -75,6 +88,8 @@ func handleLogin(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR Invalid credentials")
 		return
 	}
+	log.Printf("LOGIN - email: %s role: %s", user.Mail, user.Role)
+
 	fmt.Printf("Client number ->( %s ) logged in as ( %s ) with email ( %s )\n", conn.RemoteAddr(), user.Role, user.Mail)
 
 	fmt.Fprintln(conn, "OK "+user.Role)
@@ -84,8 +99,8 @@ func handleLogin(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 func handleAddProduct(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	idUser := readLine(reader)
 	name := readLine(reader)
-	priceStr := readLine(reader)
 	amountStr := readLine(reader)
+	priceStr := readLine(reader)
 
 	err := admin.ValidateAdmin(idUser, db)
 	if err != nil {
@@ -110,11 +125,67 @@ func handleAddProduct(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 		fmt.Fprintln(conn, "ERROR "+err.Error())
 		return
 	}
+	log.Printf("ADD PRODUCT - name: %s price: %.2f amount: %d", name, price, amount)
 
 	fmt.Fprintln(conn, "product added by user "+idUser)
 
 }
 
+func handleAddToCart(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	idUser := readLine(reader)
+	name := readLine(reader)
+	amountStr := readLine(reader)
+
+	amount, err := strconv.Atoi(amountStr)
+	if err != nil || amount <= 0 {
+		fmt.Fprintln(conn, "ERROR invalid number")
+		return
+	}
+
+	productName, err := storeclient.AddToCart(idUser, name, amount, db)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR "+err.Error())
+		return
+	}
+	log.Printf("ADD TO CART - user: %s total: $%.2f", idUser, amount)
+
+	fmt.Fprintln(conn, "OK "+productName+" added to cart")
+}
+
+func handleViewMyCart(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	idUser := readLine(reader)
+
+	items, err := storeclient.ViewCart(idUser, db)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR "+err.Error())
+		return
+	}
+
+	fmt.Fprintln(conn, len(items))
+	for _, item := range items {
+		log.Printf("PLACE ORDER - product id: %s total: $%.2f", idUser, item.Price)
+
+		fmt.Fprintln(conn, fmt.Sprintf("%s|%d|%.2f|%s", item.Name, item.Cantidad, item.Price, item.Status))
+	}
+}
+
+var mu sync.Mutex
+
+func handlePlaceOrder(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	idUser := readLine(reader)
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	total, err := storeclient.PlaceOrder(idUser, db)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR "+err.Error())
+		return
+	}
+	log.Printf("PLACE ORDER - user: %s total: $%.2f", idUser, total)
+
+	fmt.Fprintln(conn, fmt.Sprintf("OK Order placed! Total: $%.2f", total))
+}
 func handleUpdateStock(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	id := readLine(reader)
 	stock := readLine(reader)
