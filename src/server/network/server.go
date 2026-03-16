@@ -31,12 +31,19 @@ func HandleClient(conn net.Conn, db *sql.DB) {
 		switch command {
 		case "REGISTER":
 			handleRegister(reader, conn, db)
-
 		case "LOGIN":
 			handleLogin(reader, conn, db)
-
 		case "LOGOUT":
 			fmt.Printf("Client logged out: %s\n", conn.RemoteAddr())
+			return
+		case "UPDATE_STOCK":
+			handleUpdateStock(reader, conn, db)
+		case "UPDATE_PRICE":
+			handleUpdatePrice(reader, conn, db)
+		case "ORDER_HISTORY":
+			handleOrderHistory(conn, db)
+		case "LIST_PRODUCTS":
+			handleListProducts(conn, db)
 
 		case "ADD":
 			handleAddProduct(reader, conn, db)
@@ -179,6 +186,83 @@ func handlePlaceOrder(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 
 	fmt.Fprintln(conn, fmt.Sprintf("OK Order placed! Total: $%.2f", total))
 }
+func handleUpdateStock(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	id := readLine(reader)
+	stock := readLine(reader)
+
+	_, err := db.Exec("UPDATE products SET amount = ? WHERE name = ?", stock, id)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR Could not update stock")
+		return
+	}
+	fmt.Fprintln(conn, "OK Stock updated successfully")
+}
+
+func handleUpdatePrice(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
+	id := readLine(reader)
+	price := readLine(reader)
+
+	_, err := db.Exec("UPDATE products SET price = ? WHERE name = ?", price, id)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR Could not update price")
+		return
+	}
+	fmt.Fprintln(conn, "OK Price updated successfully")
+}
+
+func handleOrderHistory(conn net.Conn, db *sql.DB) {
+	query := `
+		SELECT o.id_user, id_product, p.name, o.cantidad, o.order_status 
+		FROM orders o 
+		JOIN usuarios u ON o.id_usuario = u.id 
+		JOIN productos p ON o.id_product = p.id
+	`
+	rows, err := db.Query(query)
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR Could not fetch order history")
+		return
+	}
+	defer rows.Close()
+
+	var result []string
+	for rows.Next() {
+		var id, cantidad int
+		var mail, nombre, status string
+		rows.Scan(&id, &mail, &nombre, &cantidad, &status)
+		result = append(result, fmt.Sprintf("Order ID: %d - User: %s - Product: %s - Qty: %d - Status: %s", id, mail, nombre, cantidad, status))
+	}
+
+	if len(result) == 0 {
+		fmt.Fprintln(conn, "OK No orders found")
+		return
+	}
+	fmt.Fprintln(conn, "OK |"+strings.Join(result, "|"))
+}
+
+func handleListProducts(conn net.Conn, db *sql.DB) {
+	rows, err := db.Query("SELECT id, name, amount, precio FROM products")
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR Could not fetch products")
+		return
+	}
+	defer rows.Close()
+
+	var result []string
+	for rows.Next() {
+		var id, cantidad int
+		var name string
+		var precio float64
+		rows.Scan(&id, &name, &cantidad, &precio)
+		result = append(result, fmt.Sprintf("ID: %d | Product: %s | Stock: %d | Price: $%.2f", id, name, cantidad, precio))
+	}
+
+	if len(result) == 0 {
+		fmt.Fprintln(conn, "OK No products found")
+		return
+	}
+	fmt.Fprintln(conn, "OK |"+strings.Join(result, "|"))
+}
+
 func readLine(reader *bufio.Reader) string {
 	line, _ := reader.ReadString('\n')
 	return strings.TrimSpace(line)

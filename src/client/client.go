@@ -129,10 +129,29 @@ func adminMenu() {
 		case "1":
 			handleAddProduct()
 		case "2":
+			fmt.Print("Product name: ")
+			id := readInput()
+			fmt.Print("New Stock: ")
+			stock := readInput()
+			sendCommand("UPDATE_STOCK")
+			sendCommand(id)
+			sendCommand(stock)
+			fmt.Println("Server:", readResponse())
 		case "3":
+			fmt.Print("Product name: ")
+			id := readInput()
+			fmt.Print("New Price: ")
+			price := readInput()
+			sendCommand("UPDATE_PRICE")
+			sendCommand(id)
+			sendCommand(price)
+			fmt.Println("Server:", readResponse())
 		case "4":
+			sendCommand("ORDER_HISTORY")
+			response := readResponse()
+			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 		case "5":
-			sendCommand("LIST")
+			sendCommand("LIST_PRODUCTS")
 		case "6":
 			sendCommand("LOGOUT")
 			fmt.Println("Logged out...")
@@ -177,6 +196,9 @@ func clientMenu() {
 		option := readInput()
 		switch option {
 		case "1":
+			sendCommand("LIST_PRODUCTS")
+			response := readResponse()
+			fmt.Println("Server:\n" + strings.ReplaceAll(response, "|", "\n"))
 			sendCommand("LIST")
 		case "2":
 			handleAddToCart()
