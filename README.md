@@ -115,21 +115,38 @@ go mod tidy
 
 # 6. Configurar conexión a la base de datos
 
-Editar el archivo:
+Crear el archivo en la carpeta src:
 
 ```
-database/connection.go
+.env
 ```
 
 Configurar tus credenciales:
 
 ```go
-user := "root"
-password := "password"
-host := "127.0.0.1"
-port := "3306"
-dbname := "go_store"
+DB_USER=root
+DB_PASSWORD=password
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=go_store
 ```
+
+# 7. Correr el proyecto
+
+Primero parte del servidor:
+
+```
+cd src/server
+go run main.go
+```
+
+Segundo parte del cliente:
+
+```
+cd src/client
+go run client.go
+```
+
 
 # Ejemplo de funcionalidades del administrador 
 ## Añadir producto
