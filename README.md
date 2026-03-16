@@ -165,4 +165,4 @@ dbname := "go_store"
 # Extras
 - Save status feature -> se utilizo una base de datos de sql para alamacenar usuarios, productos, ordenes, para que aunque se cierre el programa, podemos acceder de nuevo a los datos
 - User registration -> gracias la base de datos, se pueden registrar y verificar usuarios para iniciar sesion
-- Product blocking -> con uso de mutex, se logro hacer que la variable compartida de stock solo pueda ser accedida por 1 usuario a la vez
+
