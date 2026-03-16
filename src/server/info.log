@@ -55,3 +55,11 @@
 2026/03/15 18:58:04 PLACE ORDER - product id: 2 total: $2.00
 2026/03/15 18:58:04 PLACE ORDER - product id: 2 total: $4.00
 2026/03/15 19:01:05 PLACE ORDER - user: 2 total: $80.00
+2026/03/15 19:10:27 server started on port :8000
+2026/03/15 19:10:29 new client connected: 127.0.0.1:49671
+2026/03/15 19:12:57 server started on port :8000
+2026/03/15 19:13:03 new client connected: 127.0.0.1:52416
+2026/03/15 19:13:12 REGISTER - email: sa role: admin
+2026/03/15 19:13:15 LOGIN - email: sa role: admin
+2026/03/15 19:13:18 ADD PRODUCT - name: sa price: 1.00 amount: 1
+2026/03/15 19:13:39 ADD PRODUCT - name: sa1 price: 2.00 amount: 2

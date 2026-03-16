@@ -86,6 +86,7 @@ func handleLogin(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	user, err := auth.Login(mail, pass, db)
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Invalid credentials")
+		fmt.Fprintln(conn, "0")
 		return
 	}
 	log.Printf("LOGIN - email: %s role: %s", user.Mail, user.Role)
@@ -190,11 +191,23 @@ func handleUpdateStock(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	id := readLine(reader)
 	stock := readLine(reader)
 
-	_, err := db.Exec("UPDATE products SET amount = ? WHERE name = ?", stock, id)
+	result, err := db.Exec("UPDATE products SET amount = ? WHERE name = ?", stock, id)
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not update stock")
 		return
 	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR checking update result")
+		return
+	}
+
+	if rows == 0 {
+		fmt.Fprintln(conn, "ERROR product not found")
+		return
+	}
+
 	fmt.Fprintln(conn, "OK Stock updated successfully")
 }
 
@@ -202,11 +215,23 @@ func handleUpdatePrice(reader *bufio.Reader, conn net.Conn, db *sql.DB) {
 	id := readLine(reader)
 	price := readLine(reader)
 
-	_, err := db.Exec("UPDATE products SET price = ? WHERE name = ?", price, id)
+	result, err := db.Exec("UPDATE products SET price = ? WHERE name = ?", price, id)
 	if err != nil {
 		fmt.Fprintln(conn, "ERROR Could not update price")
 		return
 	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		fmt.Fprintln(conn, "ERROR checking update result")
+		return
+	}
+
+	if rows == 0 {
+		fmt.Fprintln(conn, "ERROR product not found")
+		return
+	}
+
 	fmt.Fprintln(conn, "OK Price updated successfully")
 }
 

@@ -3,6 +3,7 @@ package admin
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 )
 
 type Product struct {
@@ -34,6 +35,11 @@ func AddProduct(name string, price float64, amount int, db *sql.DB) error {
 
 	_, err := db.Exec(query, name, price, amount)
 	if err != nil {
+
+		if strings.Contains(err.Error(), "Duplicate entry") {
+			return fmt.Errorf("product with that name already exists")
+		}
+
 		return err
 	}
 
