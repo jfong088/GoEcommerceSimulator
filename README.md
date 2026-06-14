@@ -1,6 +1,6 @@
 # E-commerce Simulator
 
-A simple **Go + MySQL** project designed to manage users, products, and orders. This guide explains how to install the necessary dependencies and run the project locally using the command line.
+A simple **Golang + MySQL** project designed to manage users, products, and orders. This guide explains how to install the necessary dependencies and run the project locally using the command line.
 
 ---
 
